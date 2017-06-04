@@ -20,9 +20,18 @@ public class TestSudoku
     {
         Sudoku s = new Sudoku(3, 2);
         
-        System.err.print(s.toString());
+//        System.err.print(s.toString());
         
-        Assert.assertNotNull(s);
+        Assert.assertEquals("-------------------\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "-------------------\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "| 0 0 | 0 0 | 0 0 |\n"
+                          + "-------------------", s.toString());
+                    
     }
     
     @Test
