@@ -165,16 +165,17 @@ public class TestSudoku
     {
         Sudoku s = new Sudoku(3, 2);
         int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anyOtherValidColumn = 6;
+        int anyValidColumn = 6;
+        int anyOtherValidColumn = 4;
         int anyValidValue = 6;
-        s.setValue(anyValidRow, anyOtherValidColumn, anyValidValue);
-        
-        Assert.assertFalse(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
-        
         s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s.isValidValue(anyValidRow, anyOtherValidColumn, anyValidValue));
+        
+        s.setValue(anyValidRow, anyOtherValidColumn, anyValidValue);
        
-        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
+        Assert.assertTrue(s.isEmpty(anyValidRow, anyOtherValidColumn));
     }
     
     @Test
@@ -185,12 +186,32 @@ public class TestSudoku
         int anyValidColumn = 4;
         int anyOtherValidRow = 6;
         int anyValidValue = 6;
-        s.setValue(anyOtherValidRow, anyValidColumn, anyValidValue);
-        
-        Assert.assertFalse(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
-        
         s.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
+        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s.isValidValue(anyOtherValidRow, anyValidColumn, anyValidValue));
+        
+        s.setValue(anyOtherValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertTrue(s.isEmpty(anyOtherValidRow, anyValidColumn));
+    }
+    
+    @Test
+    public void testIsValidValueWithInvalidValueForBlock()
+    {
+        Sudoku s = new Sudoku(3, 2);
+        int anyValidRow = 3;
+        int anyValidColumn = 4;
+        int anyOtherValidRowInSameBlock = 1;
+        int anyOtherValidColumnInSameBlock = 3;
+        int anyValidValue = 6;
+        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s.isValidValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue));
+        
+        s.setValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue);
+        
+        Assert.assertTrue(s.isEmpty(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock));
     }
 }

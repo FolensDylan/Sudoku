@@ -41,7 +41,12 @@ public class Sudoku
         {
             return false;
         }
+        if(getValue(row, column) == value)
+        {
+            return true;
+        }
         
+        //check row + check column
         for(int i = 1; i <= size; i++)
         {
             if(getValue(row, i) == value)
@@ -54,7 +59,20 @@ public class Sudoku
             }
         }
         
-        //TODO: check block
+        //Check block
+        int topRowOfBlock = 1 + blockheight * (row / blockheight);
+        int leftColumnOfBlock = 1 + blockwidth * (column / blockwidth);
+        
+        for(int r = 0; r < blockheight; r++)
+        {
+            for(int c = 0; c < blockwidth; c++)
+            {
+                if(getValue(topRowOfBlock + r, leftColumnOfBlock + c) == value)
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
     
