@@ -42,14 +42,19 @@ public class Sudoku
             return false;
         }
         
-        for(int c = 1; c <= size; c++)
+        for(int i = 1; i <= size; i++)
         {
-            if(getValue(row, c) == value)
+            if(getValue(row, i) == value)
+            {
+                return false;
+            }
+            if(getValue(i, column) == value)
             {
                 return false;
             }
         }
-        //TODO: check column and check block
+        
+        //TODO: check block
         return true;
     }
     

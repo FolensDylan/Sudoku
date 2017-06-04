@@ -166,10 +166,31 @@ public class TestSudoku
         Sudoku s = new Sudoku(3, 2);
         int anyValidRow = 3;
         int anyValidColumn = 4;
-        int anyOtherColumn = 6;
+        int anyOtherValidColumn = 6;
         int anyValidValue = 6;
-        s.setValue(anyValidRow, anyOtherColumn, anyValidValue);
+        s.setValue(anyValidRow, anyOtherValidColumn, anyValidValue);
         
         Assert.assertFalse(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        
+        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+       
+        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
+    }
+    
+    @Test
+    public void testIsValidValueWithInvalidValueForColumn()
+    {
+        Sudoku s = new Sudoku(3, 2);
+        int anyValidRow = 3;
+        int anyValidColumn = 4;
+        int anyOtherValidRow = 6;
+        int anyValidValue = 6;
+        s.setValue(anyOtherValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertFalse(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        
+        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
     }
 }
