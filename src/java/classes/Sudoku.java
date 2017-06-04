@@ -35,10 +35,22 @@ public class Sudoku
         return 0 < index && index <= size;
     }
     
-    private boolean isValidValue(int row, int column, int value)
+    public boolean isValidValue(int row, int column, int value)
     {
-        return 0 < value && value <= size;
-        //TODO: add sudoku rules
+        if(0 >= value || value > size)
+        {
+            return false;
+        }
+        
+        for(int c = 1; c <= size; c++)
+        {
+            if(getValue(row, c) == value)
+            {
+                return false;
+            }
+        }
+        //TODO: check column and check block
+        return true;
     }
     
     public boolean isEmpty(int row, int column)
