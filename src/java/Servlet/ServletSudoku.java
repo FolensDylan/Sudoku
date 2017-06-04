@@ -39,7 +39,7 @@ public class ServletSudoku extends HttpServlet {
         try (PrintWriter out = response.getWriter()) 
         {
             JsonObject json = Json.createObjectBuilder()
-                    .add("msg", new Sudoku().toString())
+                    .add("msg", new Sudoku(3, 2).toString())
                     .add("success", "true")
                     .add("status", "ok")
                     .build();
