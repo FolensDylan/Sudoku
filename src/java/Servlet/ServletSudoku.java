@@ -40,7 +40,7 @@ public class ServletSudoku extends HttpServlet {
         {
             JsonObject json = Json.createObjectBuilder()
                     .add("msg", new Sudoku().toString())
-                    .add("succes", "true")
+                    .add("success", "true")
                     .build();
             out.print(json);
         }
