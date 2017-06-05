@@ -58,6 +58,15 @@ public class TestSudoku
     }
     
     @Test
+    public void testReadSudokuFromFile()
+    {
+        Sudoku s = new Sudoku("data/test.sudoku");
+        
+        Assert.assertEquals(1, s.getValue(1, 1));
+        Assert.assertEquals(3, s.getValue(6, 6));
+    }
+    
+    @Test
     public void testSetAndGetValueWithNormalValue()
     {
         Sudoku s = new Sudoku(3, 2);

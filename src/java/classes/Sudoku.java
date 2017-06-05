@@ -5,6 +5,10 @@ package classes;
  * @author Alternatief
  */
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 // FILMPJE 13 SUDOKU
 
@@ -16,12 +20,38 @@ public class Sudoku
     private int size;
     public static int EMPTY = 0;
     
-    public Sudoku(int blockheight, int blockwidth)
+    private void initialize(int blockheight, int blockwidth)
     {
         this.blockheight = blockheight;
         this.blockwidth = blockwidth;
         size = blockheight * blockwidth;
         cells = new int[size][size];
+    }
+    
+    public Sudoku(int blockheight, int blockwidth)
+    {
+        initialize(blockheight, blockwidth);
+    }
+    
+    public Sudoku(String file)
+    {
+        Path path = Paths.get(file);
+        
+        try
+        {
+            String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+            String[] numberChars = content.split("\\D+");
+            initialize(Integer.parseInt(numberChars[0]), Integer.parseInt(numberChars[1]));
+            for(int index = 0; index < numberChars.length + 2; index++)
+            {
+                setValue(1 + index / size, 1 + index % size, Integer.parseInt(numberChars[index + 2]));
+            }
+            
+        }
+        catch(Exception e)
+        {
+            System.err.println(e.toString());
+        }
     }
     
     public int getBlockWitdth()
