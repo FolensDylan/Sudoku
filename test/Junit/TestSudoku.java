@@ -14,14 +14,60 @@ import org.junit.*;
  */
 public class TestSudoku 
 {
+    private Sudoku s2x3;
+    private Sudoku s3x2;
+    private Sudoku s3x3;
+    
+    private int anyValidRow;
+    private int anyValidColumn;
+    private int anyValidValue;
+    
+    private int anInvalidRow;
+    private int anInvalidColumn;
+    private int anInvalidValue;
+    
+    @Before
+    public void setup()
+    {
+        s2x3 = new Sudoku(2, 3);
+        s3x2 = new Sudoku(3, 2);
+        s3x3 = new Sudoku(3, 3);
+        
+        anyValidRow = 1;//3;
+        anyValidColumn = 5;//4;
+        anyValidValue = 6;
+        
+        anInvalidRow = -1;
+        anInvalidColumn = -1;
+        anInvalidValue = -1;
+
+    }
+    
+    @Test
+    public void testCreateSudoku()
+    {
+        Assert.assertNotNull(s3x2);
+    }
+    
+    @Test 
+    public void testCreateSudoku2By3() 
+    {
+        Assert.assertEquals("-----------------\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "-----------------\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "-----------------\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "| 0 0 0 | 0 0 0 |\n"
+                          + "-----------------", s2x3.toString());
+                    
+    }
     
     @Test 
     public void testCreateSudoku3By2() 
     {
-        Sudoku s = new Sudoku(3, 2);
-        
-//        System.err.print(s.toString());
-        
         Assert.assertEquals("-------------------\n"
                           + "| 0 0 | 0 0 | 0 0 |\n"
                           + "| 0 0 | 0 0 | 0 0 |\n"
@@ -30,17 +76,13 @@ public class TestSudoku
                           + "| 0 0 | 0 0 | 0 0 |\n"
                           + "| 0 0 | 0 0 | 0 0 |\n"
                           + "| 0 0 | 0 0 | 0 0 |\n"
-                          + "-------------------", s.toString());
+                          + "-------------------", s3x2.toString());
                     
     }
     
     @Test 
     public void testCreateSudoku3By3() 
-    {
-        Sudoku s = new Sudoku(3, 3);
-        
-//        System.err.print(s.toString());
-        
+    {  
         Assert.assertEquals("-------------------------\n"
                           + "| 0 0 0 | 0 0 0 | 0 0 0 |\n"
                           + "| 0 0 0 | 0 0 0 | 0 0 0 |\n"
@@ -53,7 +95,7 @@ public class TestSudoku
                           + "| 0 0 0 | 0 0 0 | 0 0 0 |\n"
                           + "| 0 0 0 | 0 0 0 | 0 0 0 |\n"
                           + "| 0 0 0 | 0 0 0 | 0 0 0 |\n"
-                          + "-------------------------", s.toString());
+                          + "-------------------------", s3x3.toString());
                     
     }
     
@@ -70,203 +112,157 @@ public class TestSudoku
     @Test
     public void testSetAndGetValueWithNormalValue()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anyValidValue = 6;
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anyValidColumn));
         
-        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        s3x2.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        Assert.assertEquals(anyValidValue, s.getValue(anyValidRow, anyValidColumn));
+        Assert.assertEquals(anyValidValue, s3x2.getValue(anyValidRow, anyValidColumn));
     }
     
     @Test
     public void testSetValueWithInvalidValue()
-    {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anInvalidValue = -1;
+    {   
+        s3x2.setValue(anyValidRow, anyValidColumn, anInvalidValue);
         
-        s.setValue(anyValidRow, anyValidColumn, anInvalidValue);
-        
-        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anyValidColumn));
     }
     
     @Test
     public void testSetAndGetValueWithInvalidRow()
-    {
-        Sudoku s = new Sudoku(3, 2);
-        int anInvalidRow = -1;
-        int anyValidColumn = 4;
-        int anyValidValue = 6;
+    {   
+        s3x2.setValue(anInvalidRow, anyValidColumn, anyValidValue);
         
-        s.setValue(anInvalidRow, anyValidColumn, anyValidValue);
-        
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(anInvalidRow, anyValidColumn));
+        Assert.assertEquals(Sudoku.EMPTY, s3x2.getValue(anInvalidRow, anyValidColumn));
     }
     
     @Test
     public void testSetAndGetValueWithInvalidColumn()
-    {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anInvalidColumn = -1;
-        int anyValidValue = 6;
+    {     
+        s3x2.setValue(anyValidRow, anInvalidColumn, anyValidValue);
         
-        s.setValue(anyValidRow, anInvalidColumn, anyValidValue);
-        Assert.assertTrue(s.isEmpty(anyValidRow, anInvalidColumn));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(anyValidRow, anInvalidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anInvalidColumn));
+        Assert.assertEquals(Sudoku.EMPTY, s3x2.getValue(anyValidRow, anInvalidColumn));
     }
     
     @Test
-    public void testEmptyCell()
+    public void testEmptyCellNormally()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anyValidValue = 6;
-        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        s3x2.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        s.empty(anyValidRow, anyValidColumn);
+        s3x2.empty(anyValidRow, anyValidColumn);
         
-        Assert.assertTrue(s.isEmpty(anyValidRow, anyValidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anyValidColumn));
     }
     
     @Test
     public void testEmptyCellWithInValidRow()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anInValidRow = -1;
-        int anyValidColumn = 4;
-        int anyValidValue = 6;
+        s3x2.empty(anInvalidRow, anyValidColumn);
         
-        s.empty(anInValidRow, anyValidColumn);
-        
-        Assert.assertTrue(s.isEmpty(anInValidRow, anyValidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anInvalidRow, anyValidColumn));
     }
     
     @Test
     public void testEmptyCellWithInValidColumn()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anInvalidColumn = -1;
-        int anyValidValue = 6;
+        s3x2.empty(anyValidRow, anInvalidColumn);
         
-        s.empty(anyValidRow, anInvalidColumn);
-        
-        Assert.assertTrue(s.isEmpty(anyValidRow, anInvalidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anInvalidColumn));
     }
     
     @Test
     public void testIsValidValueWithValidValue()
-    {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anyValidValue = 6;
-        
-        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+    {       
+        Assert.assertTrue(s3x2.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
     }
     
     @Test
     public void testIsValidValueWithInvalidValueForRow()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 6;
-        int anyOtherValidColumn = 4;
-        int anyValidValue = 6;
-        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+        int anyOtherValidColumn = 6;
         
-        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
-        Assert.assertFalse(s.isValidValue(anyValidRow, anyOtherValidColumn, anyValidValue));
+        s3x2.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        s.setValue(anyValidRow, anyOtherValidColumn, anyValidValue);
+        Assert.assertTrue(s3x2.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s3x2.isValidValue(anyValidRow, anyOtherValidColumn, anyValidValue));
+        
+        s3x2.setValue(anyValidRow, anyOtherValidColumn, anyValidValue);
        
-        Assert.assertTrue(s.isEmpty(anyValidRow, anyOtherValidColumn));
+        Assert.assertTrue(s3x2.isEmpty(anyValidRow, anyOtherValidColumn));
     }
     
     @Test
     public void testIsValidValueWithInvalidValueForColumn()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
         int anyOtherValidRow = 6;
-        int anyValidValue = 6;
-        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
-        Assert.assertFalse(s.isValidValue(anyOtherValidRow, anyValidColumn, anyValidValue));
+        s3x2.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        s.setValue(anyOtherValidRow, anyValidColumn, anyValidValue);
+        Assert.assertTrue(s3x2.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s3x2.isValidValue(anyOtherValidRow, anyValidColumn, anyValidValue));
         
-        Assert.assertTrue(s.isEmpty(anyOtherValidRow, anyValidColumn));
+        s3x2.setValue(anyOtherValidRow, anyValidColumn, anyValidValue);
+        
+        Assert.assertTrue(s3x2.isEmpty(anyOtherValidRow, anyValidColumn));
     }
     
     @Test
     public void testIsValidValueWithInvalidValueForBlock()
     {
-        Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 1;
-        int anyValidColumn = 5;
         int anyOtherValidRowInSameBlock = 3;
         int anyOtherValidColumnInSameBlock = 6;
-        int anyValidValue = 6;
-        s.setValue(anyValidRow, anyValidColumn, anyValidValue);
+
+        s3x2.setValue(anyValidRow, anyValidColumn, anyValidValue);
         
-        Assert.assertTrue(s.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
-        Assert.assertFalse(s.isValidValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue));
+        Assert.assertTrue(s3x2.isValidValue(anyValidRow, anyValidColumn, anyValidValue));
+        Assert.assertFalse(s3x2.isValidValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue));
         
-        s.setValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue);
+        s3x2.setValue(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock, anyValidValue);
         
-        Assert.assertTrue(s.isEmpty(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock));
+        Assert.assertTrue(s3x2.isEmpty(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock));
     }
     
     @Test
     public void testVopyConstructor()
     {
-        Sudoku origin = new Sudoku(2, 3);
-        origin.setValue(1, 1, 1);
-        origin.setValue(4, 5, 3);
-        origin.setValue(6, 6, 6);
+        Sudoku origin = s2x3;
+        origin.setValue(1, 1, anyValidValue);
+        origin.setValue(4, 5, anyValidValue);
+        origin.setValue(6, 6, anyValidValue);
         
         Sudoku copy = new Sudoku(origin);
         
-        Assert.assertEquals(1, copy.getValue(1, 1));
-        Assert.assertEquals(3, copy.getValue(4, 5));
-        Assert.assertEquals(6, copy.getValue(6, 6));
+        Assert.assertEquals(anyValidValue, copy.getValue(1, 1));
+        Assert.assertEquals(anyValidValue, copy.getValue(4, 5));
+        Assert.assertEquals(anyValidValue, copy.getValue(6, 6));
         Assert.assertTrue(copy.equals(origin));
     }
     
     @Test
     public void testSudokuUndo()
     {
-        Sudoku s = new Sudoku(2, 3);
-        s.setValue(1, 1, 1);
-        s.setValue(4, 5, 3);
-        s.setValue(6, 6, 6);
+        s2x3.setValue(1, 1, 1);
+        s2x3.setValue(4, 5, 3);
+        s2x3.setValue(6, 6, 6);
         
-        s.undo();
+        s2x3.undo();
         
-        Assert.assertEquals(1, s.getValue(1, 1));
-        Assert.assertEquals(3, s.getValue(4, 5));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        Assert.assertEquals(1, s2x3.getValue(1, 1));
+        Assert.assertEquals(3, s2x3.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(6, 6));
         
-        s.undo();
+        s2x3.undo();
         
-        Assert.assertEquals(1, s.getValue(1, 1));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(4, 5));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        Assert.assertEquals(1, s2x3.getValue(1, 1));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(6, 6));
         
-        s.undo();
+        s2x3.undo();
         
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(1, 1));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(4, 5));
-        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(1, 1));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s2x3.getValue(6, 6));
         
-        s.undo();
+        s2x3.undo();
     }
 }
