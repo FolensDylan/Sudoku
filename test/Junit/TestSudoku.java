@@ -60,9 +60,10 @@ public class TestSudoku
     @Test
     public void testReadSudokuFromFile()
     {
-        Sudoku s = new Sudoku("data/test.sudoku");
+        Sudoku s = new Sudoku("data/test.sudoku.txt");
         
         Assert.assertEquals(1, s.getValue(1, 1));
+        Assert.assertEquals(1, s.getValue(4, 2));
         Assert.assertEquals(3, s.getValue(6, 6));
     }
     

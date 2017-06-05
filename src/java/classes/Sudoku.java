@@ -42,7 +42,7 @@ public class Sudoku
             String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
             String[] numberChars = content.split("\\D+");
             initialize(Integer.parseInt(numberChars[0]), Integer.parseInt(numberChars[1]));
-            for(int index = 0; index < numberChars.length + 2; index++)
+            for(int index = 0; index < numberChars.length - 2; index++)
             {
                 setValue(1 + index / size, 1 + index % size, Integer.parseInt(numberChars[index + 2]));
             }
