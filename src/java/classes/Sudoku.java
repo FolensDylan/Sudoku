@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 // FILMPJE 13 SUDOKU
 
@@ -19,6 +21,7 @@ public class Sudoku
     private int blockheight;
     private int blockwidth;
     private int size;
+    private Stack<Change> changes;
     public static int EMPTY = 0;
     
     private void initialize(int blockheight, int blockwidth)
@@ -27,6 +30,7 @@ public class Sudoku
         this.blockwidth = blockwidth;
         size = blockheight * blockwidth;
         cells = new int[size][size];
+        changes = new Stack<Change>();
     }
     
     public Sudoku(int blockheight, int blockwidth)
@@ -192,14 +196,18 @@ public class Sudoku
     {
         if(isValidValue(row, column, value) && isValidIndex(row) && isValidIndex(column))
         {
+            changes.push(new Change(row, column, getValue(row, column), value));
             cells[row - 1][column - 1] = value;
-            //TODO: keep track of changes
         }
     }
      
     public void undo()
     {
-        //TODO: backtrack last change
+        if(!changes.empty())
+        {
+        Change lastChange = changes.pop();
+        cells[lastChange.getRow() - 1][lastChange.getColumn() - 1] = lastChange.getOldValue();
+        }
     }
     
     @Override

@@ -240,4 +240,33 @@ public class TestSudoku
         Assert.assertEquals(6, copy.getValue(6, 6));
         Assert.assertTrue(copy.equals(origin));
     }
+    
+    @Test
+    public void testSudokuUndo()
+    {
+        Sudoku s = new Sudoku(2, 3);
+        s.setValue(1, 1, 1);
+        s.setValue(4, 5, 3);
+        s.setValue(6, 6, 6);
+        
+        s.undo();
+        
+        Assert.assertEquals(1, s.getValue(1, 1));
+        Assert.assertEquals(3, s.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        
+        s.undo();
+        
+        Assert.assertEquals(1, s.getValue(1, 1));
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        
+        s.undo();
+        
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(1, 1));
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(4, 5));
+        Assert.assertEquals(Sudoku.EMPTY, s.getValue(6, 6));
+        
+        s.undo();
+    }
 }

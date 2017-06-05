@@ -1,4 +1,4 @@
-/*
+
 package classes;
 
 /**
@@ -7,12 +7,12 @@ package classes;
  */
 public class Change 
 {
-    private int row;
-    private int column;
-    private int value;
-    private int oldValue;
+    private final int row;
+    private final int column;
+    private final int value;
+    private final int oldValue;
     
-    public Change(int row, int column, int value, int oldValue)
+    public Change(int row, int column, int oldValue, int value)
     {
         this.row = row;
         this.column = column;
@@ -36,5 +36,25 @@ public class Change
         res.append(value);       
         
         return res.toString();
+    }
+    
+    public int getRow()
+    {
+        return row;
+    }
+    
+    public int getColumn()
+    {
+        return column;
+    }
+    
+    public int getValue()
+    {
+        return value;
+    }
+    
+    public int getOldValue()
+    {
+        return oldValue;
     }
 }
