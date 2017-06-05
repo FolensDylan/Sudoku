@@ -126,11 +126,11 @@ public class Sudoku
     
     public boolean isValidValue(int row, int column, int value)
     {
-        if(0 >= value || value > size)
+        if(0 > value || value > size)
         {
             return false;
         }
-        if(getValue(row, column) == value)
+        if(getValue(row, column) == value || value == EMPTY)
         {
             return true;
         }
@@ -176,10 +176,7 @@ public class Sudoku
     
     public void empty(int row, int column)
     {
-        if(isValidIndex(row) && isValidIndex(column))
-        {
-            cells[row - 1][column - 1] = EMPTY;
-        }
+        setValue(row, column, EMPTY);
     }
     
     public int getValue(int row, int column)
@@ -196,7 +193,13 @@ public class Sudoku
         if(isValidValue(row, column, value) && isValidIndex(row) && isValidIndex(column))
         {
             cells[row - 1][column - 1] = value;
+            //TODO: keep track of changes
         }
+    }
+     
+    public void undo()
+    {
+        //TODO: backtrack last change
     }
     
     @Override
