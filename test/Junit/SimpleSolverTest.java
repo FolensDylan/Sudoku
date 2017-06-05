@@ -1,15 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Junit;
+
+import classes.SimpleSolver;
+import classes.Sudoku;
+import org.junit.*;
 
 /**
  *
  * @author Alternatief
  */
-import classes.SimpleSolver;
-import classes.Sudoku;
-import org.junit.*;
-
-public class TestSimpleSolver 
-{
+public class SimpleSolverTest {
+    
     @Test
     public void testSolve()
     {
@@ -20,4 +25,5 @@ public class TestSimpleSolver
         
         System.out.println(s.toString());
     }
+    
 }
