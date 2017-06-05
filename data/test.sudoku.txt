@@ -1,0 +1,8 @@
+3
+2 block width on next line 1 2 3 4 5 6 3 4 5 6 1 2 collated lines
+5 6X1 2 3 4 invalid character
+2 1 broken line
+4 3 6 5
+| 4 3 | 6 5 | 2 1 | visual formatting 
+6 5 2 1 4 3 7 one character to mutch
+------------------------ visual formatting
