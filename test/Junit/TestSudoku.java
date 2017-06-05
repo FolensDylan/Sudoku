@@ -224,4 +224,19 @@ public class TestSudoku
         
         Assert.assertTrue(s.isEmpty(anyOtherValidRowInSameBlock, anyOtherValidColumnInSameBlock));
     }
+    
+    @Test
+    public void testVopyConstructor()
+    {
+        Sudoku origin = new Sudoku(2, 3);
+        origin.setValue(1, 1, 1);
+        origin.setValue(4, 5, 3);
+        origin.setValue(6, 6, 6);
+        
+        Sudoku copy = new Sudoku(origin);
+        
+        Assert.assertEquals(1, copy.getValue(1, 1));
+        Assert.assertEquals(3, copy.getValue(4, 5));
+        Assert.assertEquals(6, copy.getValue(6, 6));
+    }
 }

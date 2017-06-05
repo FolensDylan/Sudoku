@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 // FILMPJE 13 SUDOKU
 
@@ -31,6 +32,18 @@ public class Sudoku
     public Sudoku(int blockheight, int blockwidth)
     {
         initialize(blockheight, blockwidth);
+    }
+    
+    public Sudoku(Sudoku origin)
+    {
+        this(origin.blockheight, origin.blockwidth);
+        for(int r = 0; r < size; r++)
+        {
+            for(int c = 0; c < size; c++)
+            {
+                cells[r][c] = origin.cells[r][c];
+            }
+        }
     }
     
     public Sudoku(String file)
