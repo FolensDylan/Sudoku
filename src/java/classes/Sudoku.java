@@ -67,6 +67,48 @@ public class Sudoku
         }
     }
     
+    @Override
+    public boolean equals(Object theOtherObject)
+    {
+        if(theOtherObject == this)
+        {
+            return true;
+        }
+        if(theOtherObject == null)
+        {
+            return false;
+        }
+        if(!(theOtherObject instanceof Sudoku))
+        {
+            return false;
+        }
+        Sudoku theOtherSudoku = (Sudoku) theOtherObject;
+        if(blockheight != theOtherSudoku.blockheight || blockwidth != theOtherSudoku.blockwidth)
+        {
+            return false;
+        }
+        for(int r = 0; r < size; r++)
+        {
+            for(int c = 0; c < size; c++)
+            {
+                if(cells[r][c] != theOtherSudoku.cells[r][c])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Arrays.deepHashCode(this.cells);
+        hash = 59 * hash + this.blockheight;
+        hash = 59 * hash + this.blockwidth;
+        return hash;
+    }
+    
     public int getBlockWitdth()
     {
         return blockwidth;

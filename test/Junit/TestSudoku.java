@@ -238,5 +238,6 @@ public class TestSudoku
         Assert.assertEquals(1, copy.getValue(1, 1));
         Assert.assertEquals(3, copy.getValue(4, 5));
         Assert.assertEquals(6, copy.getValue(6, 6));
+        Assert.assertTrue(copy.equals(origin));
     }
 }
