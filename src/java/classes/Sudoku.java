@@ -123,6 +123,11 @@ public class Sudoku
         return blockheight;
     }
     
+    public int getSize() 
+    {
+        return size;
+    }
+    
     private boolean isValidIndex(int index)
     {
         return 0 < index && index <= size;
@@ -241,5 +246,5 @@ public class Sudoku
         b.append(lineSeparator);
         return b.toString();
     }
-
+    
 }
