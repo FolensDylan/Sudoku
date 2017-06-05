@@ -200,10 +200,10 @@ public class TestSudoku
     public void testIsValidValueWithInvalidValueForBlock()
     {
         Sudoku s = new Sudoku(3, 2);
-        int anyValidRow = 3;
-        int anyValidColumn = 4;
-        int anyOtherValidRowInSameBlock = 1;
-        int anyOtherValidColumnInSameBlock = 3;
+        int anyValidRow = 1;
+        int anyValidColumn = 5;
+        int anyOtherValidRowInSameBlock = 3;
+        int anyOtherValidColumnInSameBlock = 6;
         int anyValidValue = 6;
         s.setValue(anyValidRow, anyValidColumn, anyValidValue);
         

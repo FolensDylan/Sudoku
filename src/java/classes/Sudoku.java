@@ -4,6 +4,10 @@ package classes;
  *
  * @author Alternatief
  */
+
+
+// FILMPJE 13 SUDOKU
+
 public class Sudoku
 {
     private int[][] cells;
@@ -60,8 +64,8 @@ public class Sudoku
         }
         
         //Check block
-        int topRowOfBlock = 1 + blockheight * (row / blockheight);
-        int leftColumnOfBlock = 1 + blockwidth * (column / blockwidth);
+        int topRowOfBlock = 1 + blockheight * ((row - 1) / blockheight);
+        int leftColumnOfBlock = 1 + blockwidth * ((column - 1) / blockwidth);
         
         for(int r = 0; r < blockheight; r++)
         {
