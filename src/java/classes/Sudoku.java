@@ -36,7 +36,7 @@ public class Sudoku
     
     public Sudoku(Sudoku origin)
     {
-        this(origin.blockheight, origin.blockwidth);
+        initialize(origin.blockheight, origin.blockwidth);
         for(int r = 0; r < size; r++)
         {
             for(int c = 0; c < size; c++)
